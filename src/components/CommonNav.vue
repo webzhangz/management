@@ -1,12 +1,12 @@
 <template>
-	<el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+	<el-menu default-active="1-4-1" class="el-menu-vertical-demo" 
 		:collapse="isCollapse"  
 		background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b">
-		<h3>通用后台管理系统</h3>
+		<h3>{{ isCollapse ? '主页' : '通用后台管理系统'}}</h3>
 		<!-- 遍历导航无子菜单 -->
-		<el-menu-item v-for="(item) in noMenuren"  :key="item.name" :index="item.name">
+		<el-menu-item @click="clickMenu(item)" v-for="(item) in noMenuren"  :key="item.name" :index="item.name">
 			<i :class="`el-icon-${item.icon}`"></i>
 			<span slot="title">{{item.label}}</span>
 		</el-menu-item>
@@ -16,8 +16,8 @@
 				<i :class="`el-icon-${item.icon}`"></i>
 				<span slot="title">{{item.label}}</span>
 			</template>
-			<el-menu-item-group v-for="subItem in item.children " :key="subItem.name">
-				<el-menu-item :index="subItem.path">{{subItem.label}}</el-menu-item>
+			<el-menu-item-group   v-for="subItem in item.children " :key="subItem.name">
+				<el-menu-item @click="clickTwoMenu(subItem)" :index="subItem.path">{{subItem.label}}</el-menu-item>
 			</el-menu-item-group>
 		</el-submenu>
 
@@ -26,7 +26,6 @@
 
 <script>
 export default {
-	name: 'CommonNav',
 	data() {
 		return {
 			menuData:[
@@ -38,11 +37,11 @@ export default {
 					url:"Home/Home"
 				},
 				{
-					path:"/mail",
-					name: "mail",
+					path:"/mall",
+					name: "mall",
 					label:"商品管理",
 					icon: "video-play",
-					url:"MailManage/MailManage"
+					url:"MallManage/MallManage"
 				},
 				{
 					path:"/user",
@@ -70,8 +69,22 @@ export default {
 					}]
 				}
 			],
-			isCollapse: false
+
 		};
+	},
+	methods:{
+		clickMenu(target){
+			// console.log(target);
+			// 若是觉得这种比较麻烦可以使用router.js的重写vueRouterpush和replace方法
+			if(this.$route.path !== target.path && !(this.$route.path === '/home' && (target.path === '/'))){
+				this.$router.push({path:target.path})
+			}
+		},
+		clickTwoMenu(target){
+			if(this.$route.path !== target.path && !(this.$route.path === '/home' && (target.path === '/'))){
+				this.$router.push({path:target.path})
+			}
+		}
 	},
 	computed:{
 		// 没有子菜单
@@ -81,6 +94,9 @@ export default {
 		// 有子菜单
 		hasMenuren(){
 			return this.menuData.filter(item => item.children)
+		},
+		isCollapse(){
+			return this.$store.state.navtab.isCollapse
 		}
 	}
 }
@@ -93,10 +109,13 @@ export default {
   }
 	.el-menu{
 		height: 100vh;
+		border-right: none;
 		h3 {
 			color: #ffffff;
-			font-size: 20px;
-			margin: 20px;
+			font-size: 16px;
+			font-weight: 400;
+			margin: 10px 0;
+			text-align: center;
 		}
 	}
 </style>

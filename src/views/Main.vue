@@ -1,15 +1,14 @@
 <template>
 	<div>
 		<el-container>
-			<el-aside width="300px">
-				<Common></Common>
+			<el-aside width="auto">
+				<CommonNav></CommonNav>
 			</el-aside>
 			<el-container>
 				<el-header>
-				header
+					<CommonHeader></CommonHeader>
 				</el-header>
 				<el-main>
-					home
 					<router-view></router-view>
 				</el-main>
 			</el-container>
@@ -19,21 +18,21 @@
 	</template>
 	
 	<script>
-	import Common from '@/components/CommonNav.vue';
+	import CommonNav from '@/components/CommonNav.vue';
+	import CommonHeader from '@/components/CommonHeader.vue';
+
 		export default {
 			name:'myHome',
 			components:{
-				Common
+				CommonNav,
+				CommonHeader
 			}
 		}
 	</script>
 	
 	<style scoped>
-	.el-header, .el-footer {
-    background-color: #B3C0D1;
-		width: 100vh;
-    color: #333;
-    text-align: center;
-    line-height: 60px;
+	.el-header {
+		padding: 0;
   }
+
 	</style>

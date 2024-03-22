@@ -9,14 +9,14 @@ export default {
   name: 'App',
 	data(){
 		return{
-			mes:'nih'
+			
 		}
 	}
 }
 </script>
 
 <style lang="less">
-html,body{
+html,body,header,h3,span,p,i{
 	margin: 0;
 	padding: 0;
 }
