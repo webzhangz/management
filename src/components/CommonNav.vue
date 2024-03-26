@@ -69,7 +69,6 @@ export default {
 					}]
 				}
 			],
-
 		};
 	},
 	methods:{
@@ -79,7 +78,9 @@ export default {
 			if(this.$route.path !== target.path && !(this.$route.path === '/home' && (target.path === '/'))){
 				this.$router.push({path:target.path})
 			}
+			this.$store.commit('changeCrumb',target)
 		},
+		
 		clickTwoMenu(target){
 			if(this.$route.path !== target.path && !(this.$route.path === '/home' && (target.path === '/'))){
 				this.$router.push({path:target.path})

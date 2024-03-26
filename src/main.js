@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 // 引入element-ui
 import ElementUI from 'element-ui'
+// 引入模拟数据
+import './mock/mockSever';
 // ui样式
 import 'element-ui/lib/theme-chalk/index.css';
 // 注册使用ui

@@ -3,7 +3,9 @@
 	<div class="l-content">
 		<el-button @click="isShowNav" icon='el-icon-menu' size="small"></el-button>
 		<!-- 面包屑 -->
-		<span class="text">首页</span>
+		<el-breadcrumb  separator="/">
+			<el-breadcrumb-item v-for="item in crumb" :key="item.name" :to="{ path: item.path }">{{item.label}}</el-breadcrumb-item>
+		</el-breadcrumb>
 	</div> 
 	<!-- 右侧 -->
 	<div class="r-content">
@@ -21,6 +23,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
 	data() {
 		return {
@@ -30,7 +33,18 @@ export default {
 		isShowNav(){
 			// 调用store中nav的mutations
 			this.$store.commit('isShowCollapse')
+		},
+		redirectCrumb(target){
+			console.log(target);
+			if(this.$route.path !== target.path && !(this.$route.path === '/home' && (target.path === '/'))){
+				this.$router.push({path:target.path})
+			}
 		}
+	},
+	computed:{
+		...mapState({
+			crumb:state => state.header.breadCrumb
+		})
 	}
 }
 </script>
@@ -44,10 +58,29 @@ export default {
 		justify-content:space-between;//子元素在X轴上的对齐方式
 		align-items: center;//子元素y轴对齐
 		padding: 0 20px;
-		.text{
-			color: #ffffff;
-			margin-left: 20px;
-			font-size: 14px;
+		.l-content{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			.el-breadcrumb{
+				margin-left: 20px;
+				// deep样式穿透
+				:deep(.el-breadcrumb__item) {
+					.el-breadcrumb__inner {
+						// &是作为并且
+						&.is-link{
+							color:#6c6a6a
+						}
+					}
+					// 选择最后一个样式
+					&:last-child{
+						.el-breadcrumb__inner{
+							color: #ffffff;
+						}
+					}
+				}
+
+			}
 		}
 		.r-content{
 			.user-img{
