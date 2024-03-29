@@ -13,3 +13,5 @@
 import mockreq from './mockaxios'
 // 模拟1环境
 export const getData = ()=> mockreq.get('/home/getdata')	
+
+export const getUser = ()=> mockreq.get('/user')	

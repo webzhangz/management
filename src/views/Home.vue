@@ -1,5 +1,6 @@
 <template>
 	<div >
+
 		<el-row>
 			<el-col :span="8">
 					<el-card class="box-card" >
@@ -73,6 +74,7 @@
 
 <script>
 	import { getData } from '@/api';
+
 	import * as echarts from 'echarts'
 	import 'echarts/lib/component/grid'
 
@@ -126,7 +128,7 @@
 		mounted(){
 			let res = getData()
 			res.then((res) => {
-				console.log(res);
+				// console.log(res);
 				if(res.code === 200){
 					this.tableData =  res.data.tableData
 				}

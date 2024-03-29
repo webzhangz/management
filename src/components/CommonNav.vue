@@ -1,9 +1,11 @@
 <template>
-	<el-menu default-active="1-4-1" class="el-menu-vertical-demo" 
+	<el-menu class="el-menu-vertical-demo" 
 		:collapse="isCollapse"  
 		background-color="#545c64"
     text-color="#fff"
-    active-text-color="#ffd04b">
+    active-text-color="#ffd04b"
+		:default-active="isColor"
+		>
 		<h3>{{ isCollapse ? '主页' : '通用后台管理系统'}}</h3>
 		<!-- 遍历导航无子菜单 -->
 		<el-menu-item @click="clickMenu(item)" v-for="(item) in noMenuren"  :key="item.name" :index="item.name">
@@ -25,6 +27,7 @@
 </template>
 
 <script>
+
 export default {
 	data() {
 		return {
@@ -75,9 +78,10 @@ export default {
 		clickMenu(target){
 			// console.log(target);
 			// 若是觉得这种比较麻烦可以使用router.js的重写vueRouterpush和replace方法
-			if(this.$route.path !== target.path && !(this.$route.path === '/home' && (target.path === '/'))){
-				this.$router.push({path:target.path})
-			}
+			this.$router.push({path:target.path})
+			// if(this.$route.path !== target.path && !(this.$route.path === '/home' && (target.path === '/'))){
+			// 	this.$router.push({path:target.path})
+			// }
 			this.$store.commit('changeCrumb',target)
 		},
 		
@@ -98,7 +102,12 @@ export default {
 		},
 		isCollapse(){
 			return this.$store.state.navtab.isCollapse
+		},
+		isColor(){		
+			return this.$route.name
 		}
+
+		
 	}
 }
 </script>
@@ -109,6 +118,7 @@ export default {
     min-height: 400px;
   }
 	.el-menu{
+
 		height: 100vh;
 		border-right: none;
 		h3 {

@@ -17,12 +17,19 @@ const header= {
 	},
 	// 操作数据
 	mutations : {
+		// 更新面包屑数据
 		changeCrumb(state,value){
-			// 更新数据
+			// console.log(state,value);
 			const index = state.breadCrumb.findIndex(item => item.name === value.name)
 			if(index === -1){
 				state.breadCrumb.push(value)
 			}
+		},
+		// 删除tags
+		handleClose(state,value){
+			// 判断传递进来的数据是否与breadCrumb的数据一致
+			const index = state.breadCrumb.findIndex(item => item.name === value.name )
+			state.breadCrumb.splice(index,1)
 		}
 	},
 	// 用于加工

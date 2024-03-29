@@ -8,6 +8,8 @@
 				<el-header>
 					<CommonHeader></CommonHeader>
 				</el-header>
+				<!-- tags -->
+				<CommonTags></CommonTags>
 				<el-main>
 					<router-view></router-view>
 				</el-main>
@@ -20,12 +22,13 @@
 	<script>
 	import CommonNav from '@/components/CommonNav.vue';
 	import CommonHeader from '@/components/CommonHeader.vue';
-
+	import CommonTags from '@/components/CommonTags.vue';
 		export default {
 			name:'myHome',
 			components:{
 				CommonNav,
-				CommonHeader
+				CommonHeader,
+				CommonTags
 			}
 		}
 	</script>

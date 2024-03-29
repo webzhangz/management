@@ -1,0 +1,77 @@
+{
+  "users": [
+    {
+      "id": "U001",
+      "name": "赵六",
+      "age": 30,
+      "gender": "男",
+      "date_of_birth": "1990-05-15",
+      "contact": {
+        "email": "zhaoliu@example.com"
+      },
+      "address": {
+        "city": "北京",
+        "district": "朝阳区",
+        "province": "北京市"
+      }
+    },
+    {
+      "id": "U002",
+      "name": "钱七",
+      "age": 25,
+      "gender": "女",
+      "date_of_birth": "1995-08-22",
+      "contact": {
+        "email": "qianqi@example.com"
+      },
+      "address": {
+        "city": "上海",
+        "district": "黄浦区",
+        "province": "上海市"
+      }
+    },
+    {
+      "id": "U003",
+      "name": "孙八",
+      "age": 40,
+      "gender": "男",
+      "date_of_birth": "1980-09-10",
+      "contact": {
+        "email": "sunba@example.com"
+      },
+      "address": {
+        "city": "广州",
+        "district": "天河区",
+        "province": "广东省"
+      }
+    },
+    {
+      "id": "U004",
+      "name": "李九",
+      "age": 22,
+      "gender": "女",
+      "date_of_birth": "2000-11-30",
+      "contact": {
+        "email": "lijiu@example.com"
+      },
+      "address": {
+        "city": "杭州",
+        "district": "西湖区",
+        "province": "浙江省"
+      }
+    },
+		{
+      "id": "U005",
+      "name": "钱七",
+      "age": 25,
+      "gender": "女",
+      "date_of_birth": "1995-08-22",
+      "email": "qianqi@example.com",
+      "address": {
+        "city": "上海",
+        "district": "黄浦区",
+        "province": "上海市"
+      }
+    }
+  ]
+}
