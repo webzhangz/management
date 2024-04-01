@@ -14,4 +14,11 @@ import mockreq from './mockaxios'
 // 模拟1环境
 export const getData = ()=> mockreq.get('/home/getdata')	
 
-export const getUser = ()=> mockreq.get('/user')	
+// axios传参需要一个params对象
+export const getUserList = (params)=> mockreq.get('/user/get',params)
+
+export const createUser = (data)=> mockreq.post('/user/add',data)	
+
+export const updateUser = (data)=> mockreq.post('/user/update',data)	
+
+export const deleteUser = (data)=> mockreq.post('/user/del',data)	

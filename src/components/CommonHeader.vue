@@ -4,7 +4,7 @@
 		<el-button @click="isShowNav" icon='el-icon-menu' size="small"></el-button>
 		<!-- 面包屑 -->
 		<el-breadcrumb  separator="/">
-			<el-breadcrumb-item  v-for="item in crumb" :key="item.name" :to="{ path: item.path }">{{item.label}}</el-breadcrumb-item>
+			<el-breadcrumb-item v-for="item in crumb" :key="item.name" :to="{ path: item.path }">{{item.label}}</el-breadcrumb-item>
 		</el-breadcrumb>
 	</div> 
 	<!-- 右侧 -->
@@ -34,9 +34,7 @@ export default {
 		isShowNav(){
 			// 调用store中nav的mutations
 			this.$store.commit('isShowCollapse')
-		}
-		// 控制面包屑高亮部分，随着router显示高亮
-
+		},
 	},
 	computed:{
 		...mapState({
@@ -73,6 +71,7 @@ export default {
 					&:last-child{
 						.el-breadcrumb__inner{
 							color: #ffffff;
+							cursor:pointer
 						}
 					}
 				}
