@@ -10,6 +10,7 @@
 // 		method:'GET'
 // 	})
 // }
+
 import mockreq from './mockaxios'
 // 模拟1环境
 export const getData = ()=> mockreq.get('/home/getdata')	
@@ -22,3 +23,7 @@ export const createUser = (data)=> mockreq.post('/user/add',data)
 export const updateUser = (data)=> mockreq.post('/user/update',data)	
 
 export const deleteUser = (data)=> mockreq.post('/user/del',data)	
+
+
+// Login
+export const getLogin = (data)=> mockreq.post('/login',data)	

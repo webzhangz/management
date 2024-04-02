@@ -1,24 +1,23 @@
 # backManagement
 
-#### 软件架构
+## 软件架构
 后台管理系统
 
-#### 技术栈
+## 技术栈
 
 vue-router -vuex-axios - elemeny-ui-echarts
 
-#### 使用
+## 使用
 
-安装依赖
-npm install
+### 安装依赖：npm install
 
-启动使用：npm run serve
-
-技术难点：面包屑，登录鉴权
+### 启动使用：npm run serve
 
 
 
-面包屑
+## 逻辑说明
+
+### 面包屑
 
 ![1711621687068](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1711621687068.png)
 
@@ -58,7 +57,7 @@ clickMenu(target){
 },
 ```
 
-vuex管理js
+### vuex管理js
 
 ```
 // 更新面包屑数据
@@ -116,7 +115,7 @@ isColor(){
 }
 ```
 
-关于tags
+### 关于tags
 
 用mapState截取vuex中的数据、展示
 
@@ -180,7 +179,89 @@ handleClose(state,value){
 
 
 
-用户页面：
+### 用户页面：
 
-新建和编辑删除列表数据一致性情况
+用户增删改查作用
 
+​	新增提示框和编辑提示框复用同一个，`modalType`字段表示
+
+​	用户加载页面：mounted发请求获取最新的数据；封装成一个函数方法
+
+```
+getUser() {
+//input 搜索时传参，改变页码时传参
+    getUserList({params:{...this.input,...this.pageData}}).then((result) => {
+        if (result.code == 200) {
+            // console.log(result);
+            this.UserList = result.data
+            this.pagecount = result.count
+        }
+    })
+},
+```
+
+​	用户提示框，提交form发post请求（需要判断modaltype字段区分编辑还是新增）之后调用不同接口获取
+
+ps：如果时编辑状态下需要将数据进行深度拷贝
+
+​	关闭提示框时需要清空form数据：封装在关闭时触发的方法`this.$refs.userForm.resetFields()`方法
+
+​	改变页码：记录当前的条数，点击时获取点击页码，之后重新调用`getUser`接口
+
+### 封装请求接口API
+
+由于没有后端接口，这里采取mock模拟
+
+大致流程,	封装发请求----创建aixos/拦截器
+
+封装API
+
+```
+// import requests from "./requests";
+// 请求首页数据:正式环境
+// export const getData = ()=>{
+// 	// 发请求  axios发请求是Promise对象
+// 	return requests({
+// 		url:'/home/getData',
+// 		method:'GET'
+// 	})
+// }
+import mockreq from './mockaxios'
+// 模拟1环境
+export const getData = ()=> mockreq.get('/home/getdata')	
+
+// axios传参接收params对象（具体根据后端文档
+export const getUserList = (params)=> mockreq.get('/user/get',params)
+
+export const createUser = (data)=> mockreq.post('/user/add',data)	
+
+export const updateUser = (data)=> mockreq.post('/user/update',data)	
+export const deleteUser = (data)=> mockreq.post('/user/del',data)	
+```
+
+创建aixos/拦截器
+
+```
+import axios from "axios";
+
+const requests = axios.create({
+	baseURL:'/api',
+	timeout:5000
+})
+
+requests.interceptors.request.use(config =>{
+	console.log('请求拦截器触发');
+	return config
+})
+// 返回promise对象
+requests.interceptors.response.use(res =>{
+	console.log('响应拦截器触发');
+	return res.data
+},(err)=>{
+	console.log(err);
+	return Promise.reject(new Error('false'))
+})
+export default requests
+```
+
+登录鉴权：token

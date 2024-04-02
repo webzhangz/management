@@ -9,13 +9,13 @@
 	</div> 
 	<!-- 右侧 -->
 	<div class="r-content">
-		<el-dropdown>
+		<el-dropdown @command="handleCommand">
 			<span class="el-dropdown-link">
 				<img class="user-img" src="@/assets/images/headphoto.png" alt="客户">
 			</span>
 			<el-dropdown-menu slot="dropdown">
-				<el-dropdown-item>修改用户</el-dropdown-item>
-				<el-dropdown-item>退出</el-dropdown-item>
+				<el-dropdown-item command="mend">修改用户</el-dropdown-item>
+				<el-dropdown-item command="exit">退出</el-dropdown-item>
 			</el-dropdown-menu>
 		</el-dropdown>
 	</div> 
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
 import { mapState } from 'vuex';
 export default {
 	data() {
@@ -35,6 +36,10 @@ export default {
 			// 调用store中nav的mutations
 			this.$store.commit('isShowCollapse')
 		},
+		handleCommand(){
+			Cookies.remove("Token")
+			this.$router.push({name:'login'})
+		}
 	},
 	computed:{
 		...mapState({

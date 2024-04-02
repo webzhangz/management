@@ -7,6 +7,8 @@ import Main from '@/views/Main.vue'
 import Mall from '@/views/Mall.vue'
 import pageTwo from '@/views/pageTwo.vue';
 import pageOne from '@/views/pageOne.vue';
+import Login from '@/views/login.vue'
+
 
 // 重写vuerouter的push和replace方法
 const rwPush = VueRouter.prototype.push 
@@ -29,6 +31,7 @@ VueRouter.prototype.replace = function (location, onComplete, onAbort) {
     rwReplace.call(this, location, onComplete, onAbort)
   }
 }
+
 
 
 Vue.use(VueRouter)
@@ -68,6 +71,11 @@ const 	routes  = [
 		]
 
 	},
+	{
+		path:'/login',
+		name:'login',
+		component:Login
+	}
 
 
 

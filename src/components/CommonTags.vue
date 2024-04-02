@@ -24,6 +24,9 @@ export default {
 			
 		}
 	},
+	mounted(){
+		console.log(this.$store.state);
+	},
 	methods:{
 		// 点击跳转到目标页
 		clickTags(item){

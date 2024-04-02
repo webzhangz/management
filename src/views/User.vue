@@ -1,5 +1,5 @@
 <template>
-	<div class="userManage">
+	<div class="userManage" v-loading="loading">
 		<div class="layout">
 			<!-- 提示框 -->
 			<el-dialog :title="title" :visible.sync="dialogFormVisible" :before-close="handdleVisible">
@@ -75,6 +75,7 @@ export default {
 	name: 'UserHeader',
 	data() {
 		return {
+			loading:true,
 			title:'新增用户',
 			input: {
 				name:""
@@ -111,13 +112,12 @@ export default {
 					{ message: '请输入地址' }
 				]
 			},
-			modalType: 0 //0表示新增的弹窗   1表示编辑
+			modalType: 0 //0表示新增的弹窗   1表示编辑 新增提示框和编辑提示框复用同一个，`modalType`字段表示
 		}
 	},
 	mounted() {
 		// 获取数据
 		this.getUser()
-		this.modalType = 0
 	},
 	computed: {
 		// 筛选出sex == 0 和 sex== 1情况
@@ -150,7 +150,6 @@ export default {
 					}
 					this.handdleVisible()
 				}
-
 			})
 		},
 		// 关闭弹窗时
@@ -198,15 +197,20 @@ export default {
 		},
 		//封装 请求获取用户数据
 		getUser() {
-			return getUserList({params:{...this.input,...this.pageData},}).then((result) => {
+			// console.log('getUser');
+			getUserList({params:{...this.input,...this.pageData}}).then((result) => {
+				this.loading = false
 				if (result.code == 200) {
 					// console.log(result);
 					this.UserList = result.data
 					this.pagecount = result.count
 				}
+			}).catch(()=>{
+				alert("网络错误")
 			})
 		},
 		searchList(){
+			console.log(this.input);
 			this.getUser()
 		}
 	},

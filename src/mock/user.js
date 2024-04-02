@@ -45,7 +45,7 @@ export default {
 	 * @return {(code:number,count:number,data:*[])}
 	*/
 	getUserList: config => {
-		console.log(config.url);
+		// console.log(config.url);
 		const { name, page = 1, limit = 20 } = param2Obj(config.url)
 		// console.log(name, page, limit);
 		const mockList = List.filter(user => {
