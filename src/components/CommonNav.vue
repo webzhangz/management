@@ -6,6 +6,7 @@
     active-text-color="#ffd04b"
 		:default-active="isColor"
 		>
+
 		<h3>{{ isCollapse ? '主页' : '通用后台管理系统'}}</h3>
 		<!-- 遍历导航无子菜单 -->
 		<el-menu-item @click="clickMenu(item)" v-for="(item) in noMenuren"  :key="item.name" :index="item.name">
@@ -27,51 +28,53 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
 
+// import { mapState } from 'vuex';
 export default {
 	data() {
 		return {
-			menuData:[
-				{
-					path:"/",
-					name: "home",
-					label:"首页",
-					icon: "s-home",
-					url:"Home/Home"
-				},
-				{
-					path:"/mall",
-					name: "mall",
-					label:"商品管理",
-					icon: "video-play",
-					url:"MallManage/MallManage"
-				},
-				{
-					path:"/user",
-					name: "user",
-					label:"用户管理",
-					icon: "user",
-					url:"UserManage/UserManage"
-				},
-				{
-					label:"其他",
-					icon:"location",
-					children: [{
-						path: "/page1",
-						name: "page1",
-						label:"页面1",
-						icon:"setting",
-						url: "other/Pageone"
-					},
-					{
-						path: "/page2",
-						name: "page2",
-						label:"页面2",
-						icon:"setting",
-						url: "other/Pagetwo"
-					}]
-				}
-			],
+			// menuData:[
+			// 	{
+			// 		path:"/",
+			// 		name: "home",
+			// 		label:"首页",
+			// 		icon: "s-home",
+			// 		url:"Home/Home"
+			// 	},
+			// 	{
+			// 		path:"/mall",
+			// 		name: "mall",
+			// 		label:"商品管理",
+			// 		icon: "video-play",
+			// 		url:"MallManage/MallManage"
+			// 	},
+			// 	{
+			// 		path:"/user",
+			// 		name: "user",
+			// 		label:"用户管理",
+			// 		icon: "user",
+			// 		url:"UserManage/UserManage"
+			// 	},
+			// 	{
+			// 		label:"其他",
+			// 		icon:"location",
+			// 		children: [{
+			// 			path: "/page1",
+			// 			name: "page1",
+			// 			label:"页面1",
+			// 			icon:"setting",
+			// 			url: "other/Pageone"
+			// 		},
+			// 		{
+			// 			path: "/page2",
+			// 			name: "page2",
+			// 			label:"页面2",
+			// 			icon:"setting",
+			// 			url: "other/Pagetwo"
+			// 		}]
+			// 	}
+			// ],
 		};
 	},
 	methods:{
@@ -105,9 +108,11 @@ export default {
 		},
 		isColor(){		
 			return this.$route.name
+		},
+		menuData(){
+			// 判断当前数据，如果缓存中没有，则从store中获取
+			return JSON.parse(Cookies.get('menu')) || this.$store.state.navtab.menuData
 		}
-
-		
 	}
 }
 </script>

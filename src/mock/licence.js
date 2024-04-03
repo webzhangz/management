@@ -2,7 +2,7 @@ import Mock from 'mockjs'
 
 export default {
 	getLogin : config =>{
-		console.log(config.body);
+		// console.log(config.body);
 		const {username,password }= JSON.parse(config.body)
 		if(username === 'admin' && password  === 'admin'){
 			return {
@@ -10,25 +10,26 @@ export default {
 				data:{
 					menu:[
 						{
-							path:"/",
+							path:"/home",
 							name: "home",
 							label:"首页",
 							icon: "s-home",
-							url:"Home/Home"
+							url:"Home.vue"
 						},
 						{
 							path:"/mall",
 							name: "mall",
 							label:"商品管理",
 							icon: "video-play",
-							url:"MallManage/MallManage"
+							url:"Mall.vue"
 						},
 						{
 							path:"/user",
 							name: "user",
 							label:"用户管理",
 							icon: "user",
-							url:"UserManage/UserManage"
+							url:"User.vue"
+							
 						},
 						{
 							label:"其他",
@@ -38,14 +39,14 @@ export default {
 								name: "page1",
 								label:"页面1",
 								icon:"setting",
-								url: "other/Pageone"
+								url: "pageOne.vue"
 							},
 							{
 								path: "/page2",
 								name: "page2",
 								label:"页面2",
 								icon:"setting",
-								url: "other/Pagetwo"
+								url: "PageTwo.vue"
 							}]
 						}
 					],
@@ -61,18 +62,18 @@ export default {
 				data:{
 					menu:[
 						{
-							path:"/",
+							path:"/home",
 							name: "home",
 							label:"首页",
 							icon: "s-home",
-							url:"Home/Home"
+							url:"Home.vue"
 						},
 						{
 							path:"/mall",
 							name: "mall",
 							label:"商品管理",
 							icon: "video-play",
-							url:"MallManage/MallManage"
+							url:"Mall.vue"
 						}
 					],
 					// token信息

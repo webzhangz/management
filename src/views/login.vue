@@ -1,7 +1,10 @@
 <template>
 	<div class="login-mall">
-		<el-form :model="loginFrom" class="login" label-width="80px" :inline="true" :rules="rules">
+		<el-form ref="login" :model="loginFrom" class="login" label-width="80px" :inline="true" :rules="rules">
 			<h3 class="login-title">系统登录</h3>
+			<div class="usertags"  v-show="isUser">
+				<div class="usertags-title">帐号或者密码错误</div>
+			</div>
 			<el-form-item label="用户名" prop="username">
 				<el-input v-model="loginFrom.username" placeholder="请输入账号"></el-input>
 			</el-form-item>
@@ -20,11 +23,12 @@
 
 <script>
 import { getLogin } from '@/api';
-// import Cookies from 'js-cookie'
+import Cookies from 'js-cookie'
 export default {
 	name: 'myLogin',
 	data() {
 		return {
+			isUser:false,
 			loginFrom: {
 				username: '',
 				password: ""
@@ -42,12 +46,30 @@ export default {
 	methods:{
 		// 登录按钮
 		submitlogin(){
-			getLogin({...this.loginFrom}).then((res)=>{
-				console.log(res);
+			// 校验表单
+			this.$refs.login.validate((boolean)=>{
+				if(boolean){
+					getLogin({...this.loginFrom}).then((res)=>{
+						if(res.code === 200){
+							// token信息
+							Cookies.set('Token',res.data.token,{expires:3})
+							console.log('res',res);
+							// 跳转首页
+							this.$router.push({name:'home'})
+							// 将获取到的menu信息存入store
+							this.$store.commit("addMenu",res.data.menu)
+							// 将获取到的动态路由（this.$router）信息存入store
+							this.$store.commit("setRouterMenu",this.$router)
+
+						}else{
+							this.isUser = true
+						}
+					}).catch((err)=>{
+					console.log(err);
+					})
+				}
 			})
-			// token信息
-			// Cookies.set('Token',Token,{expires:3})
-			// this.$router.push({name:'home'})
+
 		}
 	}
 }
@@ -72,6 +94,19 @@ export default {
 	top: 0;
   left: 0;
 	position: relative;
+	.usertags{
+		margin-bottom:16px;
+		box-sizing:inherit;
+		height: auto;
+		background-color:#FFF6F6;
+		border:1px solid #e3e9ed;
+		border-radius: 4px;
+		box-shadow: 0px 0px 0px 1px #e0b4b4 inset,0px 0px 0px 0px rgba(0,0,0,0);
+		.usertags-title{
+			padding: 14px 21px;
+			color: #c30707;
+		}
+	}
 	.login {
 		position: absolute;
 			border-radius: 15px;
@@ -94,7 +129,7 @@ export default {
 				display: flex;
 				justify-content: center;
 			}
-		}
+	}
 }
 
 </style>

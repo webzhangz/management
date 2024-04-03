@@ -264,4 +264,101 @@ requests.interceptors.response.use(res =>{
 export default requests
 ```
 
-登录鉴权：token
+### 登录
+
+思路，用户登录发请求获取到专属token（临时将token的值存入cookie），如果token不对则返回密码错误，密码正确跳转到home首页，对于菜单的数据在不同页面之间的数据通信采取存放到store中
+
+1.不同的账号登录，会有不同的菜单权限
+
+​		比如管理员和用户的菜单是不一样的，我们可以借助vuex存放数据
+
+登录页面：
+
+```
+getLogin({...this.loginFrom}).then((res)=>{
+if(res.code === 200){
+    // token信息
+    Cookies.set('Token',res.data.token,{expires:3})
+    console.log('res',res);
+    // 跳转首页
+    this.$router.push({name:'home'})
+    // 将获取到的menu信息存入store
+    this.$store.commit("addMenu",res.data.menu)
+    // 将获取到的动态路由（this.$router）信息存入store
+    this.$store.commit("setRouterMenu",this.$router)
+
+}else{
+    this.isUser = true
+}
+}).catch((err)=>{
+console.log(err);
+})
+```
+
+storejs中
+
+```
+// 设置menu数据
+addMenu(state,value){
+    state.menuData = value
+    // 存入menu缓存
+    Cookies.set("menu",JSON.stringify(value))
+    // console.log(state.menuData,value);
+},
+```
+
+但是vuex中的数据是存放在内存中，刷新会显示空白所以就要进行缓存
+
+`CommonNav.vue`
+
+```
+menuData(){
+    // 判断当前数据，如果缓存中没有，则从store中获取
+return JSON.parse(Cookies.get('menu')) ||  this.$store.state.navtab.menuData
+}
+```
+
+2.通过url输入地址来显示页面
+
+​	针对权限不同，地址获取也要不同
+
+​	这个系统采取在vuex中设置动态路由 -登陆时存放---store拼接动态路由
+
+```
+mutations : {
+// 动态注册路由
+setRouterMenu(state,router){
+    // 1判断缓存中是否有数据,有则取
+    if(!Cookies.get('menu')) return
+    const menu = JSON.parse(Cookies.get('menu'))
+    state.menuData = menu
+
+    //2 组装动态路由的数据
+    const menuArr =  []
+    menu.forEach(item => {
+    // console.log(state);
+
+        // 有子菜单情况
+        if(item.children){
+            item.children = item.children.map(val => {
+                // 动态添加子路由 
+                item.component = ()=> import(`../views/${val.url}`)
+                return val
+            })
+            menuArr.push(...item.children)
+        // 没有子菜单情况	
+        }else {
+            item.component = ()=> import(`../views/${item.url}`)
+            menuArr.push(item)
+        }
+    });
+    menuArr.forEach(index => {
+        // console.log(menuArr,'idnex');
+        //设置动态路由跳转
+        router.addRoute('Main',index)
+    })
+}
+}
+```
+
+登录后刷新获取不到路由：原因，这是我们存放的数据是在store中，但是初始化时不会渲染router，所以需要在`main.js`文件中加载一遍这个方法

@@ -14,7 +14,7 @@
 				<img class="user-img" src="@/assets/images/headphoto.png" alt="客户">
 			</span>
 			<el-dropdown-menu slot="dropdown">
-				<el-dropdown-item command="mend">修改用户</el-dropdown-item>
+				<el-dropdown-item command="mend">个人用户</el-dropdown-item>
 				<el-dropdown-item command="exit">退出</el-dropdown-item>
 			</el-dropdown-menu>
 		</el-dropdown>
@@ -36,9 +36,13 @@ export default {
 			// 调用store中nav的mutations
 			this.$store.commit('isShowCollapse')
 		},
-		handleCommand(){
-			Cookies.remove("Token")
-			this.$router.push({name:'login'})
+		handleCommand(val){
+			if(val === 'exit'){
+				Cookies.remove("Token")
+				Cookies.remove("menu")
+				this.$router.push({name:'login'})
+			}
+
 		}
 	},
 	computed:{

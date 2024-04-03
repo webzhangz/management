@@ -1,15 +1,9 @@
 // 使用router
 import Vue from 'vue'
 import VueRouter from 'vue-router';
-import Home from '@/views/Home.vue'
-import User from '@/views/User.vue'
 import Main from '@/views/Main.vue'
-import Mall from '@/views/Mall.vue'
-import pageTwo from '@/views/pageTwo.vue';
-import pageOne from '@/views/pageOne.vue';
 import Login from '@/views/login.vue'
-
-
+import Cookies from 'js-cookie';
 // 重写vuerouter的push和replace方法
 const rwPush = VueRouter.prototype.push 
 const rwReplace = VueRouter.prototype.replace
@@ -40,34 +34,35 @@ const 	routes  = [
 	{
 		path:"/",
 		component:Main,
+		name:'Main',
 		// 重定向
 		redirect:'home',
 		// 子路由
 		children:[
-			{
-				path:'/home',
-				name:'home',
-				component:Home
-			},{
-				path:'/mall',
-				name:'mall',
-				component:Mall
-			},
-			{
-				path:'/user',
-				name:'user',
-				component:User
-			},
-			{
-				path:'/page1',
-				name:'page1',
-				component:pageOne
-			},
-			{
-				path:'/page2',
-				name:'page2',
-				component:pageTwo
-			},
+			// {
+			// 	path:'/home',
+			// 	name:'home',
+			// 	component:Home
+			// },{
+			// 	path:'/mall',
+			// 	name:'mall',
+			// 	component:Mall
+			// },
+			// {
+			// 	path:'/user',
+			// 	name:'user',
+			// 	component:User
+			// },
+			// {
+			// 	path:'/page1',
+			// 	name:'page1',
+			// 	component:pageOne
+			// },
+			// {
+			// 	path:'/page2',
+			// 	name:'page2',
+			// 	component:pageTwo
+			// },
 		]
 
 	},
@@ -76,14 +71,24 @@ const 	routes  = [
 		name:'login',
 		component:Login
 	}
-
-
-
 ]
 
 const router = new VueRouter({
 	mode:'history',
 	routes
 })
+
+router.beforeEach((to,from,next)=>{
+	const token = Cookies.get('Token')
+	if(to.name !== 'login' && !token ){
+		next({name:'login'})
+	}
+	else if(to.name === 'login' && token){
+		next({name:'home'})
+	}else next()
+})
+
+
+
 
 export default router
