@@ -27,3 +27,13 @@ export const deleteUser = (data)=> mockreq.post('/user/del',data)
 
 // Login
 export const getLogin = (data)=> mockreq.post('/login',data)	
+
+
+// 模拟商品获取
+export const getMallList = (params)=> mockreq.get('/mall/get',params)
+
+export const createMall = (data)=> mockreq.post('/mall/add',data)	
+
+export const updateMall = (data)=> mockreq.post('/mall/update',data)	
+
+export const deleteMall = (data)=> mockreq.post('/mall/del',data)	

@@ -7,7 +7,9 @@
 <script>
 	export default {
 		name:'pageOne',
-
+		mounted(){
+			console.log(this.$router);
+		}
 	}
 </script>
 

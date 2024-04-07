@@ -20,10 +20,9 @@
 				<span slot="title">{{item.label}}</span>
 			</template>
 			<el-menu-item-group   v-for="subItem in item.children " :key="subItem.name">
-				<el-menu-item @click="clickTwoMenu(subItem)" :index="subItem.path">{{subItem.label}}</el-menu-item>
+				<el-menu-item @click="clickTwoMenu(subItem)" :index="subItem.name">{{subItem.label}}</el-menu-item>
 			</el-menu-item-group>
 		</el-submenu>
-
 	</el-menu>
 </template>
 
@@ -79,7 +78,7 @@ export default {
 	},
 	methods:{
 		clickMenu(target){
-			// console.log(target);
+			console.log(target);
 			// 若是觉得这种比较麻烦可以使用router.js的重写vueRouterpush和replace方法
 			this.$router.push({path:target.path})
 			// if(this.$route.path !== target.path && !(this.$route.path === '/home' && (target.path === '/'))){
@@ -89,9 +88,11 @@ export default {
 		},
 		
 		clickTwoMenu(target){
-			if(this.$route.path !== target.path && !(this.$route.path === '/home' && (target.path === '/'))){
-				this.$router.push({path:target.path})
-			}
+			console.log(target);
+			// if(this.$route.path !== target.path && !(this.$route.path === '/home' && (target.path === '/'))){
+				this.$router.push({name:target.name})
+				
+			// }
 		}
 	},
 	computed:{
@@ -110,6 +111,7 @@ export default {
 			return this.$route.name
 		},
 		menuData(){
+			// console.log(this.$store.state.navtab.menuData);
 			// 判断当前数据，如果缓存中没有，则从store中获取
 			return JSON.parse(Cookies.get('menu')) || this.$store.state.navtab.menuData
 		}

@@ -1,25 +1,64 @@
-# backManagement
+#### 后台管理系统
+![1712456306153](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1712456306153.png)
 
-## 软件架构
-后台管理系统
+##### 提示：管理员登录：admin --- - admin  	用户登录：user --- 123
 
-## 技术栈
+##### 技术栈
 
 vue-router -vuex-axios - elemeny-ui-echarts
 
-## 使用
+##### 使用
 
-### 安装依赖：npm install
+安装依赖：npm install
 
-### 启动使用：npm run serve
+启动使用：npm run serve
 
+##### 目录结构
 
+```
+├── /dist/         		 	# 项目打包后的文件
+├── /public/        	 	# 入口目录
+│ ├── /index.html/       	# 入口文件
+├── /src/            	 	# 源码目录
+│ ├── /api/          	 	# API请求(真实/mock请求)
+│ ├── /assets/       		# 组件静态资源(图片)
+│ ├── /components/  		# 组件
+│ ├── /router/       		# 路由配置
+│ ├── /store/         		# vuex状态管理
+│ ├── /views/        		# 路由组件(页面维度)
+│ ├── /mock/       			# mock接口配置文件
+│ ├── App.vue       		# 组件入口
+│ └── main.js        		# 程序入口
+├── babel.config.js  		# ES6语法编译配置
+├── package-lock.json		#包的版本号
+├── package.json     		# 项目依赖
+└── README.md        		# 项目全局配置
+```
 
-## 逻辑说明
+##### 完成功能
 
-### 面包屑
+-  登录 -- 完成
+-  路由拦截 -- 完成
+- 首页图表可视化 ---- 完成
+-  商品管理（增加、编辑、搜索、删除） -- 即将完成
+-  用户管理（增加、编辑、搜索、删除、数据权限、刷新缓存） -- 完成
+-  权限管理（增加、编辑、搜索、删除、配置权限） -- 完成
 
-![1711621687068](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1711621687068.png)
+###### 登录
+
+![1712457029272](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1712457029272.png)
+
+###### 首页截图
+
+![1712456958962](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1712456958962.png)
+
+###### 用户管理
+
+**![1712457002715](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1712457002715.png)**
+
+##### 逻辑说明
+
+###### 面包屑
 
 右侧导航栏跳转时需要出现面包屑，删除时需要跳转到另一个页面，这里默认最后一个
 
@@ -57,7 +96,7 @@ clickMenu(target){
 },
 ```
 
-### vuex管理js
+`store.js`	
 
 ```
 // 更新面包屑数据
@@ -115,7 +154,7 @@ isColor(){
 }
 ```
 
-### 关于tags
+###### 关于tags
 
 用mapState截取vuex中的数据、展示
 
@@ -166,7 +205,7 @@ closeTags(item){
 }
 ```
 
-`vuexindex.js`	mutations操作数据
+`store.js`	mutations操作数据
 
 ```
 // 删除tags
@@ -177,13 +216,11 @@ handleClose(state,value){
 }
 ```
 
-
-
-### 用户页面：
+##### 用户页面：
 
 用户增删改查作用
 
-​	新增提示框和编辑提示框复用同一个，`modalType`字段表示
+​	新增提示框和编辑提示框复用同一个，modalType字段表示
 
 ​	用户加载页面：mounted发请求获取最新的数据；封装成一个函数方法
 
@@ -204,11 +241,11 @@ getUser() {
 
 ps：如果时编辑状态下需要将数据进行深度拷贝
 
-​	关闭提示框时需要清空form数据：封装在关闭时触发的方法`this.$refs.userForm.resetFields()`方法
+​	关闭提示框时需要清空form数据：封装在关闭时触发的方法this.$refs.userForm.resetFields()方法
 
-​	改变页码：记录当前的条数，点击时获取点击页码，之后重新调用`getUser`接口
+​	改变页码：记录当前的条数，点击时获取点击页码，之后重新调用getUser接口
 
-### 封装请求接口API
+##### 封装请求接口API
 
 由于没有后端接口，这里采取mock模拟
 
@@ -264,7 +301,7 @@ requests.interceptors.response.use(res =>{
 export default requests
 ```
 
-### 登录
+##### 登录
 
 思路，用户登录发请求获取到专属token（临时将token的值存入cookie），如果token不对则返回密码错误，密码正确跳转到home首页，对于菜单的数据在不同页面之间的数据通信采取存放到store中
 
@@ -295,7 +332,7 @@ console.log(err);
 })
 ```
 
-storejs中
+`store.js`中
 
 ```
 // 设置menu数据
@@ -309,7 +346,7 @@ addMenu(state,value){
 
 但是vuex中的数据是存放在内存中，刷新会显示空白所以就要进行缓存
 
-`CommonNav.vue`
+CommonNav.vue
 
 ```
 menuData(){
@@ -361,4 +398,4 @@ setRouterMenu(state,router){
 }
 ```
 
-登录后刷新获取不到路由：原因，这是我们存放的数据是在store中，但是初始化时不会渲染router，所以需要在`main.js`文件中加载一遍这个方法
+登录后刷新获取不到路由：原因，这是我们存放的数据是在store中，但是初始化时不会渲染router，所以需要在main.js文件中加载一遍这个方法

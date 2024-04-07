@@ -16,7 +16,6 @@
 							<el-option label="男" :value="1"></el-option>
 							<el-option label="女" :value="0"></el-option>
 						</el-select>
-
 					</el-form-item>
 					<el-form-item label="出生日期" prop="date">
 						<el-date-picker type="date" placeholder="选择日期" v-model="userForm.date" value-format="yyyy-MM-dd"
@@ -27,15 +26,16 @@
 						<el-input v-model="userForm.address" autocomplete="off" placeholder="请输入地址"></el-input>
 					</el-form-item>
 				</el-form>
+				
 				<div slot="footer" class="dialog-footer">
 					<el-button @click="cancelForm">取 消</el-button>
 					<el-button type="primary" @click="SubmitForm">确 定</el-button>
 				</div>
 			</el-dialog>
-
 			<div>
 				<el-button type="primary " @click="showDialog">新增+</el-button>
 			</div>
+			
 			<div class="right-user">
 				<el-input placeholder="请输入内容" v-model="input.name" clearable>
 				</el-input>
@@ -44,7 +44,7 @@
 		</div>
 		<div class="list">
 			<el-table height="90%" style="width: 100%" :data="UserLists">
-				{{ UserLists }}
+
 				<el-table-column prop="name" label="姓名" width="150">
 				</el-table-column>
 				<el-table-column prop="age" label="年龄" width="150">
@@ -144,7 +144,7 @@ export default {
 					} else {
 						updateUser(this.userForm).then(() => {
 							this.getUser()
-							this.modalType === 1
+
 							// console.log('updateUser',result);
 						})
 					}

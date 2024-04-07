@@ -98,27 +98,27 @@
 					},
 					{
 						name:'今日收藏订单',
-						value:22222,
+						value:1234,
 						icon:'star-on',
 						color:'#f1881f'
 					},					{
 						name:'今日未支付订单',
-						value:3333,
+						value:233,
 						icon:'circle-close',
 						color:'#0a6fe2'
 					},					{
 						name:'本月支付订单',
-						value:44444,
+						value:1223,
 						icon:'success',
 						color:'#2ec7c9'
 					},					{
 						name:'本月收藏订单',
-						value:55555,
+						value:2355,
 						icon:'star-on',
 						color:'#f1881f'
 					},					{
 						name:'本月未支付订单',
-						value:88888,
+						value:365,
 						icon:'circle-close',
 						color:'#0a6fe2'
 					}
