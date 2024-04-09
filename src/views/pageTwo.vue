@@ -1,6 +1,6 @@
 <template>
 	<div class="layout">
-		pageTwo
+		页面尚未开发
 	</div>	
 </template>
 

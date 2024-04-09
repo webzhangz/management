@@ -26,8 +26,6 @@ VueRouter.prototype.replace = function (location, onComplete, onAbort) {
   }
 }
 
-
-
 Vue.use(VueRouter)
 const 	routes  = [
 	// 配置主路由
@@ -38,32 +36,7 @@ const 	routes  = [
 		// 重定向
 		redirect:'home',
 		// 子路由
-		children:[
-			// {
-			// 	path:'/home',
-			// 	name:'home',
-			// 	component:Home
-			// },{
-			// 	path:'/mall',
-			// 	name:'mall',
-			// 	component:Mall
-			// },
-			// {
-			// 	path:'/user',
-			// 	name:'user',
-			// 	component:User
-			// },
-			// {
-			// 	path:'/page1',
-			// 	name:'page1',
-			// 	component:pageOne
-			// },
-			// {
-			// 	path:'/page2',
-			// 	name:'page2',
-			// 	component:pageTwo
-			// },
-		]
+		children:[]
 
 	},
 	{
@@ -78,15 +51,19 @@ const router = new VueRouter({
 	routes
 })
 
+
 router.beforeEach((to,from,next)=>{
 	const token = Cookies.get('Token')
 	if(to.name !== 'login' && !token ){
+
 		next({name:'login'})
 	}
 	else if(to.name === 'login' && token){
 		next({name:'home'})
 	}else next()
 })
+
+
 
 
 

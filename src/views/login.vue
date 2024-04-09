@@ -52,13 +52,13 @@ export default {
 					getLogin({...this.loginFrom}).then((res)=>{
 						if(res.code === 200){
 							// token信息
-							Cookies.set('Token',res.data.token,{expires:3})
-							console.log('res',res);
+							Cookies.set('Token',res.data.token,{expires:0.3})
 							// 跳转首页
-							this.$router.push({name:'home'})
+							this.$router.push({path:'/home'})
 							// 将获取到的menu信息存入store
 							this.$store.commit("addMenu",res.data.menu)
 							// 将获取到的动态路由（this.$router）信息存入store
+
 							this.$store.commit("setRouterMenu",this.$router)
 
 						}else{

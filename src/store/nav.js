@@ -30,17 +30,17 @@ const navtab = {
 
 			//2 组装动态路由的数据
 			const menuArr =  []
-			menu.forEach(item => {
-			// console.log(state);
-				
+			menu.forEach(item => {	
 				// 有子菜单情况
 				if(item.children){
 					item.children = item.children.map(val => {
 						// 动态添加子路由 
-						item.component = ()=> import(`../views/${val.url}`)
+						val.component = ()=> import(`../views/${val.url}`)
 						return val
 					})
+					
 					menuArr.push(...item.children)
+					// console.log(menuArr);
 				// 没有子菜单情况	
 				}else {
 					item.component = ()=> import(`../views/${item.url}`)
@@ -48,7 +48,6 @@ const navtab = {
 				}
 			});
 			menuArr.forEach(index => {
-				// console.log(menuArr,'idnex');
 				router.addRoute('Main',index)
 			})
 		}
