@@ -40,7 +40,9 @@ export default {
 			if(val === 'exit'){
 				Cookies.remove("Token")
 				Cookies.remove("menu")
+				
 				this.$router.push({name:'login'})
+
 			}
 
 		}

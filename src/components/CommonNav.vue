@@ -78,7 +78,7 @@ export default {
 	},
 	methods:{
 		clickMenu(target){
-			console.log(target);
+			console.log('clickMenu',target);
 			// 若是觉得这种比较麻烦可以使用router.js的重写vueRouterpush和replace方法
 			this.$router.push({path:target.path})
 			// if(this.$route.path !== target.path && !(this.$route.path === '/home' && (target.path === '/'))){
@@ -88,9 +88,9 @@ export default {
 		},
 		
 		clickTwoMenu(target){
-			console.log(target);
+			console.log('clickTwoMenu',target);
 			// if(this.$route.path !== target.path && !(this.$route.path === '/home' && (target.path === '/'))){
-				this.$router.push({name:target.name})
+			this.$router.push({name:target.name})
 				
 			// }
 		}
