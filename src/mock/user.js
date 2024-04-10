@@ -16,7 +16,7 @@ function param2Obj(url) {
 	)
 }
 let List = []
-const count = 200
+const count = 100
 
 for (let i = 0; i < count; i++) {
 	List.push(

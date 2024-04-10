@@ -53,11 +53,11 @@
 					</el-table-column>
 					<el-table-column  prop="salesPer" label="分销商" width="auto">
 					</el-table-column>
-					<el-table-column prop="price" label="价格" max-width="150">
+					<el-table-column prop="price" label="价格" width="100">
 					</el-table-column>
-					<el-table-column prop="stocks" label="总库存"  max-width="150">
+					<el-table-column prop="stocks" label="总库存"  width="100">
 					</el-table-column>
-					<el-table-column prop="salesVolume" label="总销量"  max-width="150">
+					<el-table-column prop="salesVolume" label="总销量"  width="100">
 					</el-table-column>
 					<el-table-column prop="date" label="时间日期" width="auto">
 					</el-table-column>
@@ -68,8 +68,8 @@
 						</template>
 					</el-table-column>
 				</el-table>
-				<el-pagination @current-change="changPage" layout="prev, pager, next" :total="pagecount">
-		</el-pagination>
+				<el-pagination class="footer-page" @current-change="changPage" layout="prev, pager, next" :total="pagecount">
+				</el-pagination>
 		</div>
 	</div>	
 </template>
@@ -207,6 +207,7 @@ import {createMall,updateMall, getMallList,deleteMall} from '@/api';
 </script>
 
 <style scoped lang="less">
+
 .header-mall{
 	display: flex;
 	align-items: center;
@@ -216,6 +217,12 @@ import {createMall,updateMall, getMallList,deleteMall} from '@/api';
 	}
 }
 .context-mall{
-	height: 100vh;
+	height:80vh;
+	.footer-page{
+		text-align: right;
+		padding: 10px
+	}
 }
+
+
 </style>

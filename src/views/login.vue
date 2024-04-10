@@ -78,12 +78,14 @@ export default {
 <style scoped lang="less">
 @media (max-width: 1200px) {
   .login-mall {
+		padding-top: 200px;
 		background-image: linear-gradient(to top, #c1dfc4 0%, #deecdd 100%);
   }
 }
 
 @media (min-width: 1200px) {
   .login-mall {
+		padding-top:380px;
 		background-image: linear-gradient(to top, #fddb92 0%, #d1fdff 100%);
   }
 }
@@ -111,7 +113,7 @@ export default {
 		position: absolute;
 			border-radius: 15px;
 			width: 350px;
-			margin-top: 380px;
+
 			margin-left: 60%;
 			box-shadow: 0 0 25px #b2aeae;
 			background-color: #ffffff;
