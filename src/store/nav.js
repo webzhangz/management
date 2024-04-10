@@ -16,7 +16,7 @@ const navtab = {
 		addMenu(state,value){
 			state.menuData = value
 			// 存入menu缓存
-			Cookies.set("menu",JSON.stringify(value))
+			Cookies.set("menu",JSON.stringify(value),{expires:1})
 			// console.log(state.menuData,value);
 		},
 
@@ -24,7 +24,9 @@ const navtab = {
 		// 动态注册路由
 		setRouterMenu(state,router){
 			// 1判断缓存中是否有数据,有则取
-			if(!Cookies.get('menu')) return
+			if(!Cookies.get('menu')){
+				return
+			}
 			const menu = JSON.parse(Cookies.get('menu'))
 			state.menuData = menu
 
