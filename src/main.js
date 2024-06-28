@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-// 引入element-ui
-import ElementUI from 'element-ui'
+
 // 引入模拟数据
 import './mock/mockSever';
 // ui样式
@@ -11,8 +10,41 @@ import router from './router';
 import store from './store';
 
 
+// 完整引入 引入element-ui
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css';
 // 注册使用ui
 Vue.use(ElementUI)
+
+// 按需引入
+// import {
+//   Pagination,
+//   Dialog,
+//   Autocomplete,
+//   Dropdown,
+//   DropdownMenu,
+//   DropdownItem,
+//   Menu,
+//   Submenu,
+//   MenuItem,
+//   MenuItemGroup,
+//   Input,
+//   InputNumber,
+// } from 'element-ui';
+
+// Vue.use(Pagination);
+// Vue.use(Dialog);
+// Vue.use(Autocomplete);
+// Vue.use(Dropdown);
+// Vue.use(DropdownMenu);
+// Vue.use(DropdownItem);
+// Vue.use(Menu);
+// Vue.use(Submenu);
+// Vue.use(MenuItem);
+// Vue.use(MenuItemGroup);
+// Vue.use(Input);
+// Vue.use(InputNumber);
+
 
 
 Vue.config.productionTip = false

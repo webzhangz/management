@@ -10,7 +10,7 @@
 				</el-header>
 				<!-- tags -->
 				<CommonTags></CommonTags>
-				<el-main>
+				<el-main style="height: 80vh;">
 					<router-view></router-view>
 				</el-main>
 			</el-container>
@@ -37,5 +37,6 @@
 	.el-header {
 		padding: 0;
   }
+
 
 	</style>

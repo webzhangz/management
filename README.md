@@ -13,6 +13,10 @@ vue-router -vuex-axios - elemeny-ui-echarts
 
 启动使用：npm run serve
 
+git配置插件
+npm install commitizen -D安装Commitizen，
+然后输入npm i -D cz-customizable安装cz-customizable自定义的 Commitizen 插件
+
 ##### 目录结构
 
 ```
